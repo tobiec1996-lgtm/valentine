@@ -26,7 +26,11 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      overflow:hidden;
+
+      /* ✅ allow vertical scrolling on mobile */
+      overflow-x:hidden;
+      overflow-y:auto;
+
       color:var(--text);
     }
 
@@ -38,6 +42,7 @@
       opacity:.7;
       filter: drop-shadow(0 10px 16px rgba(0,0,0,.10));
       animation: floatUp linear forwards;
+      z-index: 0;
     }
     @keyframes floatUp{
       from{ transform: translateY(30px) scale(.9); opacity:0; }
@@ -55,6 +60,8 @@
       box-shadow: 0 24px 80px rgba(17,24,39,.18);
       position:relative;
       animation: popIn .5s ease both;
+      z-index: 1;
+      margin: 18px 0; /* ✅ gives space when scrolling */
     }
     @keyframes popIn{
       from{ opacity:0; transform: translateY(8px) scale(.98); }
@@ -221,7 +228,7 @@
       filter: saturate(1.05) contrast(1.02);
     }
 
-    /* ✅ Captions clearly under the photo */
+    /* captions under photo */
     .cap{
       padding:12px 14px;
       font-weight:600;
@@ -355,6 +362,14 @@
       font-weight:850;
       color:#111827;
       box-shadow: 0 12px 26px rgba(17,24,39,.08);
+    }
+
+    /* ✅ keep question view centered nicely even with scroll enabled */
+    #questionView{
+      scroll-margin-top: 16px;
+    }
+    #galleryView{
+      scroll-margin-top: 16px;
     }
   </style>
 </head>
@@ -514,7 +529,6 @@
     const confettiBtn = document.getElementById('confettiBtn');
     const backBtn = document.getElementById('backBtn');
     const returnMessage = document.getElementById('returnMessage');
-
     const song = document.getElementById("weddingSong");
 
     let soundOn = false;
@@ -581,6 +595,7 @@
       galleryView.classList.add('hidden');
       questionView.classList.remove('hidden');
       showToast("Okay… maar ek weet dis JA 😄");
+      questionView.scrollIntoView({ behavior: "smooth" });
     });
 
     confettiBtn.addEventListener('click', () => burstHearts(55));
@@ -610,6 +625,9 @@
       questionView.classList.add('hidden');
       galleryView.classList.remove('hidden');
 
+      /* ✅ scroll to gallery so all photos are reachable on mobile */
+      galleryView.scrollIntoView({ behavior: "smooth" });
+
       soundOn = true;
       musicBtn.textContent = "🔊 Klank: Aan";
       song.volume = 0.85;
@@ -618,7 +636,7 @@
       burstHearts(40);
       showToast("Beste keuse ooit 💖");
 
-      const msg = "Ja ek sal jou Valentyn wees my bok💖";
+      const msg = "Ja ek sal jou Valentyn wees my bok?";
       const url = "https://wa.me/27645337497?text=" + encodeURIComponent(msg);
 
       whatsappOpened = true;
@@ -643,6 +661,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
