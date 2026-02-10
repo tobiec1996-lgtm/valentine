@@ -135,9 +135,9 @@
     button{
       border:0;
       border-radius: 16px;
-      padding: 12px 18px;   /* smaller than before */
+      padding: 12px 18px;   /* smaller */
       font-weight: 950;
-      font-size: 16px;      /* smaller than before */
+      font-size: 16px;      /* smaller */
       cursor:pointer;
       transition: transform .08s ease, filter .2s ease, box-shadow .2s ease;
       box-shadow: 0 14px 34px rgba(17,24,39,.18);
@@ -220,12 +220,17 @@
       display:block;
       filter: saturate(1.05) contrast(1.02);
     }
+
+    /* ✅ Captions clearly under the photo */
     .cap{
       padding:12px 14px;
-      font-weight:850;
-      font-size: 14px;
-      line-height: 1.35;
-      color: #111827;
+      font-weight:600;
+      font-size:14px;
+      line-height:1.4;
+      text-align:center;
+      color:#374151;
+      background:white;
+      border-top:1px solid rgba(0,0,0,.05);
     }
 
     .twoCol{
@@ -340,7 +345,6 @@
       transform: translateX(-50%) translateY(-6px);
     }
 
-    /* Message that shows when she returns from WhatsApp */
     .returnMsg{
       display:none;
       margin-top:12px;
@@ -397,7 +401,7 @@
           </div>
 
           <div class="returnMsg" id="returnMessage">
-            Ek is so lief vir jou ❤️ (gaan terug na die webblad wanneer jy klaar “Send” gedruk het)
+            Ek is so lief vir jou ❤️
           </div>
         </div>
 
@@ -504,7 +508,6 @@
     const playArea = document.getElementById('playArea');
     const questionView = document.getElementById('questionView');
     const galleryView = document.getElementById('galleryView');
-    const pop = document.getElementById('pop'); // (not used but safe if present)
     const musicBtn = document.getElementById('musicBtn');
     const toast = document.getElementById('toast');
     const hintText = document.getElementById('hintText');
@@ -555,7 +558,6 @@
         "Ek dink die heelal wil hê jy moet JA druk 💖";
     }
 
-    // Floating hearts
     function burstHearts(n=20){
       for(let i=0;i<n;i++){
         const el = document.createElement('div');
@@ -571,22 +573,18 @@
     }
     setInterval(() => burstHearts(4), 1200);
 
-    // NEE button dodge (mouse + mobile)
     noBtn.addEventListener('mouseenter', moveNoButton);
     noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveNoButton(); }, {passive:false});
     noBtn.addEventListener('click', moveNoButton);
 
-    // Back button
     backBtn.addEventListener('click', () => {
       galleryView.classList.add('hidden');
       questionView.classList.remove('hidden');
       showToast("Okay… maar ek weet dis JA 😄");
     });
 
-    // More love
     confettiBtn.addEventListener('click', () => burstHearts(55));
 
-    // Vouchers
     document.querySelectorAll('[data-voucher]').forEach(btn => {
       btn.addEventListener('click', () => {
         burstHearts(18);
@@ -594,7 +592,6 @@
       });
     });
 
-    // Klank toggle (controls the wedding song)
     musicBtn.addEventListener('click', () => {
       soundOn = !soundOn;
       musicBtn.textContent = soundOn ? "🔊 Klank: Aan" : "🔇 Klank: Af";
@@ -609,12 +606,10 @@
       }
     });
 
-    // YES -> show gallery + play song + open WhatsApp (prefilled)
     yesBtn.addEventListener('click', () => {
       questionView.classList.add('hidden');
       galleryView.classList.remove('hidden');
 
-      // start music on user tap (allowed by browsers)
       soundOn = true;
       musicBtn.textContent = "🔊 Klank: Aan";
       song.volume = 0.85;
@@ -623,28 +618,24 @@
       burstHearts(40);
       showToast("Beste keuse ooit 💖");
 
-      // WhatsApp open to you
       const msg = "Ja ek sal jou Valentyn wees my bok?";
       const url = "https://wa.me/27645337497?text=" + encodeURIComponent(msg);
 
       whatsappOpened = true;
       if(returnMessage) returnMessage.style.display = "none";
 
-      // open WhatsApp after a short moment
       setTimeout(() => window.open(url, "_blank"), 1200);
     });
 
-    // When she returns from WhatsApp, show message + hearts
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden && whatsappOpened) {
         if(returnMessage) returnMessage.style.display = "block";
         burstHearts(22);
         showToast("Welkom terug 💖");
-        whatsappOpened = false; // stop repeating
+        whatsappOpened = false;
       }
     });
 
-    // initial position
     window.addEventListener('load', () => {
       noBtn.style.left = "58%";
       noBtn.style.top = "55%";
@@ -652,6 +643,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
