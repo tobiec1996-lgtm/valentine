@@ -1,606 +1,209 @@
 <!doctype html>
 <html lang="af">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sal jy my Valentyn wees? 💘</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sal jy my Valentyn wees? 💘</title>
 
-  <style>
-    :root{
-      --bg1:#fff1f3;
-      --bg2:#fbcfe8;
-      --card:rgba(255,255,255,.78);
-      --text:#111827;
-      --muted:#6b7280;
-      --yes:#15803d;
-      --no:#dc2626;
-      --dark:#111827;
-      --chip:rgba(255,255,255,.70);
-      --line:rgba(17,24,39,.08);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(circle at top, var(--bg1), var(--bg2));
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      color:var(--text);
-    }
+<style>
+:root{
+  --bg1:#fff1f3;
+  --bg2:#fbcfe8;
+  --card:rgba(255,255,255,.78);
+  --text:#111827;
+  --muted:#6b7280;
+  --yes:#15803d;
+  --no:#dc2626;
+  --dark:#111827;
+  --chip:rgba(255,255,255,.70);
+}
 
-    /* Drywende harte */
-    .heart{
-      position:absolute;
-      font-size:18px;
-      opacity:.65;
-      animation: floatUp linear forwards;
-      user-select:none;
-      pointer-events:none;
-      filter: drop-shadow(0 10px 16px rgba(0,0,0,.10));
-    }
-    @keyframes floatUp{
-      from{ transform: translateY(30px) scale(.9); opacity:0; }
-      12%{ opacity:.8; }
-      to{ transform: translateY(-110vh) scale(1.45); opacity:0; }
-    }
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: radial-gradient(circle at top, var(--bg1), var(--bg2));
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  color:var(--text);
+}
 
-    /* Subtle fade-in */
-    .card{
-      width:min(980px, 94vw);
-      background:var(--card);
-      border:1px solid rgba(255,255,255,.55);
-      backdrop-filter: blur(16px);
-      border-radius:28px;
-      padding:26px;
-      box-shadow: 0 24px 80px rgba(17,24,39,.18);
-      position:relative;
-      animation: popIn .5s ease both;
-    }
-    @keyframes popIn{
-      from{ opacity:0; transform: translateY(8px) scale(.98); }
-      to{ opacity:1; transform: translateY(0) scale(1); }
-    }
+.card{
+  width:min(980px,94vw);
+  background:var(--card);
+  border-radius:28px;
+  padding:26px;
+  box-shadow:0 24px 80px rgba(0,0,0,.18);
+}
 
-    .top{
-      display:flex;
-      gap:18px;
-      align-items:flex-start;
-      justify-content:space-between;
-      flex-wrap:wrap;
-    }
-    h1{
-      margin:0;
-      font-size: clamp(28px, 3.6vw, 46px);
-      letter-spacing:-.03em;
-      font-weight: 950;
-    }
-    .subtitle{
-      margin:10px 0 0;
-      font-size: clamp(14px, 1.8vw, 18px);
-      color: var(--muted);
-      line-height: 1.4;
-      max-width: 70ch;
-    }
+h1{
+  margin:0;
+  font-size:clamp(28px,3.6vw,46px);
+  font-weight:900;
+}
+.subtitle{
+  margin-top:10px;
+  color:var(--muted);
+}
 
-    .pillRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:12px;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      background: var(--chip);
-      border:1px solid var(--line);
-      font-size:13px;
-      color: var(--dark);
-      opacity:.92;
-    }
+.stage{
+  margin-top:20px;
+  background:white;
+  border-radius:20px;
+  padding:20px;
+}
 
-    .stage{
-      margin-top:18px;
-      background: rgba(255,255,255,.62);
-      border-radius:22px;
-      padding:20px;
-      position:relative;
-      min-height: 320px;
-      overflow:hidden;
-      border:1px solid var(--line);
-      box-shadow: 0 14px 40px rgba(17,24,39,.08) inset;
-    }
+.question{
+  text-align:center;
+  font-size:28px;
+  font-weight:900;
+}
 
-    .question{
-      text-align:center;
-      margin:18px auto 14px;
-      font-size: clamp(22px, 3vw, 36px);
-      font-weight: 950;
-      letter-spacing:-.02em;
-    }
+.btnRow{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  margin-top:20px;
+  height:150px;
+  position:relative;
+}
 
-    .btnRow{
-      display:flex;
-      gap:14px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top:14px;
-      position:relative;
-      height: 180px;
-      align-items:center;
-    }
+button{
+  border:0;
+  border-radius:14px;
+  padding:14px 22px;
+  font-weight:900;
+  font-size:18px;
+  cursor:pointer;
+}
 
-    button{
-      border:0;
-      border-radius: 16px;
-      padding: 14px 22px;
-      font-weight: 950;
-      font-size: 18px;
-      cursor:pointer;
-      transition: transform .08s ease, filter .2s ease, box-shadow .2s ease;
-      box-shadow: 0 14px 34px rgba(17,24,39,.18);
-    }
-    button:active{ transform: scale(.98); }
+#yesBtn{background:var(--yes);color:white;}
+#noBtn{
+  background:var(--no);
+  color:white;
+  position:absolute;
+  left:60%;
+  top:50%;
+  transform:translate(-50%,-50%);
+}
 
-    #yesBtn{
-      background: linear-gradient(180deg, rgba(21,128,61,1), rgba(16,111,54,1));
-      color:white;
-    }
-    #yesBtn:hover{ filter: brightness(1.06); }
+.hidden{display:none}
 
-    #noBtn{
-      background: linear-gradient(180deg, rgba(220,38,38,1), rgba(185,28,28,1));
-      color:white;
-      position:absolute;
-      left: 58%;
-      top: 55%;
-      transform: translate(-50%, -50%);
-      touch-action: none;
-      white-space: nowrap;
-      box-shadow: 0 14px 34px rgba(17,24,39,.20);
-    }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+  margin-top:15px;
+}
 
-    .hint{
-      text-align:center;
-      margin: 8px 0 0;
-      font-size: 14px;
-      color: var(--muted);
-    }
+.imgCard{
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 12px 30px rgba(0,0,0,.15);
+}
 
-    .hidden{ display:none; }
+.imgCard img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
 
-    /* Galery / afdelings */
-    .galleryHeader{
-      display:flex;
-      gap:14px;
-      align-items:flex-start;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .message{
-      font-size: clamp(16px, 2vw, 20px);
-      line-height:1.45;
-      max-width: 68ch;
-      margin: 8px 0 0;
-      color: var(--text);
-      opacity:.96;
-    }
+.cap{
+  padding:10px;
+  font-weight:700;
+}
 
-    .sectionTitle{
-      margin: 20px 0 12px;
-      font-size: 18px;
-      font-weight: 950;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      letter-spacing:-.01em;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap:14px;
-      margin-top:12px;
-    }
-    .imgCard{
-      border-radius:18px;
-      overflow:hidden;
-      position:relative;
-      background:#fff;
-      border:1px solid var(--line);
-      box-shadow: 0 14px 40px rgba(17,24,39,.12);
-      transform: translateZ(0);
-    }
-    .imgCard img{
-      width:100%;
-      height:230px;
-      object-fit:cover;
-      display:block;
-      filter: saturate(1.05) contrast(1.02);
-    }
-    .cap{
-      padding:12px 14px;
-      font-weight:850;
-      font-size: 14px;
-      line-height: 1.35;
-      color: #111827;
-    }
-
-    .twoCol{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:14px;
-      margin-top:16px;
-    }
-    @media (max-width: 860px){
-      .twoCol{ grid-template-columns: 1fr; }
-    }
-
-    .panel{
-      background: rgba(255,255,255,.68);
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:16px;
-      box-shadow: 0 12px 34px rgba(17,24,39,.10);
-    }
-
-    .reasonGrid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap:10px;
-      margin-top:10px;
-    }
-    .reason{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:12px;
-      font-weight:850;
-      min-height:58px;
-      display:flex;
-      align-items:center;
-      box-shadow: 0 12px 26px rgba(17,24,39,.07);
-    }
-
-    .voucher{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:14px;
-      box-shadow: 0 12px 26px rgba(17,24,39,.07);
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .voucher h3{
-      margin:0;
-      font-size:16px;
-      font-weight:950;
-      letter-spacing:-.01em;
-    }
-    .voucher p{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.4;
-    }
-
-    .chipBtn{
-      align-self:flex-start;
-      background: var(--dark);
-      color:white;
-      font-size:13px;
-      padding:10px 12px;
-      border-radius: 14px;
-      box-shadow:none;
-    }
-    .chipBtn:hover{ filter:brightness(1.1); }
-
-    .smallBtn{
-      background: rgba(17,24,39,.94);
-      color:white;
-      font-size:14px;
-      padding:10px 14px;
-      border-radius: 14px;
-      box-shadow:none;
-    }
-    .smallBtn:hover{ filter: brightness(1.06); }
-
-    .footer{
-      margin-top:14px;
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      font-size: 13px;
-      color: var(--muted);
-      opacity:.92;
-    }
-
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom:18px;
-      transform:translateX(-50%);
-      background: rgba(17,24,39,.92);
-      color:#fff;
-      padding:10px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.22);
-      opacity:0;
-      pointer-events:none;
-      transition: opacity .25s ease, transform .25s ease;
-    }
-    .toast.show{
-      opacity:1;
-      transform: translateX(-50%) translateY(-6px);
-    }
-  </style>
+</style>
 </head>
+
 <body>
 
-  <div class="card">
-    <div class="top">
-      <div>
-        <h1>Hallo my engel 💘</h1>
-        <p class="subtitle">Ek dink die woord ‘mooi’ is uitgevind net om Mia te beskryf.</p>
+<div class="card">
+<h1>Hallo my engel 💘</h1>
+<p class="subtitle">Ek dink die woord ‘mooi’ is uitgevind net om Mia te beskryf.</p>
 
-        <div class="pillRow">
-          <div class="pill">💖 Met liefde gemaak</div>
-          <div class="pill">📸 Ons herinneringe</div>
-          <div class="pill">✨ Een eenvoudige vraag</div>
-        </div>
-      </div>
+<div class="stage" id="questionView">
+<div class="question">Sal jy my Valentyn wees? 🥺</div>
 
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="smallBtn" id="musicBtn">🔇 Klank: Af</button>
-      </div>
-    </div>
+<div class="btnRow" id="playArea">
+<button id="yesBtn">JA 😍</button>
+<button id="noBtn">NEE 🙈</button>
+</div>
+</div>
 
-    <!-- VRAAG -->
-    <div class="stage" id="questionView">
-      <div class="question">Sal jy my Valentyn wees? 🥺</div>
+<div class="stage hidden" id="galleryView">
+<div class="question">Jaaa!! 🎉💖</div>
 
-      <div class="btnRow" id="playArea">
-        <button id="yesBtn">JA 😍</button>
-        <button id="noBtn">NEE 🙈</button>
-      </div>
+<div class="grid">
+<div class="imgCard">
+<img src="photos/photo1.jpg">
+<div class="cap">Wat ons uniek maak, is dat ons mekaar kies—elke dag, oor en oor.</div>
+</div>
 
-      <div class="hint" id="hintText">Wenk: probeer “NEE” tik… as jy durf 😅</div>
-    </div>
+<div class="imgCard">
+<img src="photos/photo2.jpg">
+<div class="cap">Twee verskillende mense, een span, een pad, een liefde.</div>
+</div>
 
-    <!-- GALERY -->
-    <div class="stage hidden" id="galleryView">
-      <div class="galleryHeader">
-        <div>
-          <div class="question">Jaaa!! 🎉💖</div>
-          <div class="message" id="loveMsg">
-            Jy maak my lewe ligter op ’n manier wat ek nie kan verduidelik nie.
-            Dankie dat jy my beste mens is. Ek kies jou—vandag en altyd.
-          </div>
-        </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="smallBtn" id="confettiBtn">🎊 Nog liefde</button>
-          <button class="smallBtn" id="backBtn">↩ Terug</button>
-        </div>
-      </div>
+<div class="imgCard">
+<img src="photos/photo3.jpg">
+<div class="cap">My gunsteling avontuur maat 🌍</div>
+</div>
 
-      <div class="sectionTitle">📸 Ons mooiste oomblikke</div>
-      <div class="grid" id="grid">
+<div class="imgCard">
+<img src="photos/photo4.jpg">
+<div class="cap">Huis is waar jy is 🏡</div>
+</div>
+</div>
+</div>
+</div>
 
-        <div class="imgCard">
-          <img src="photos/photo1.jpg" alt="Herinnering 1">
-          <div class="cap">Wat ons uniek maak, is dat ons mekaar kies—elke dag, oor en oor.</div>
-        </div>
+<script>
+const yesBtn = document.getElementById('yesBtn');
+const noBtn = document.getElementById('noBtn');
+const playArea = document.getElementById('playArea');
+const questionView = document.getElementById('questionView');
+const galleryView = document.getElementById('galleryView');
 
-        <div class="imgCard">
-          <img src="photos/photo2.jpg" alt="Herinnering 2">
-          <div class="cap">Twee verskillende mense, een span, een pad, een liefde.</div>
-        </div>
+let dodgeLevel = 0;
 
-        <div class="imgCard">
-          <img src="photos/photo3.jpg" alt="Herinnering 3">
-          <div class="cap">My gunsteling avontuur maat 🌍</div>
-        </div>
+function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
 
-        <div class="imgCard">
-          <img src="photos/photo4.jpg" alt="Herinnering 4">
-          <div class="cap">Huis is waar jy is 🏡</div>
-        </div>
+function moveNoButton(){
+  dodgeLevel++;
+  const areaRect = playArea.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
+  const maxLeft = areaRect.width - btnRect.width;
+  const maxTop  = areaRect.height - btnRect.height;
 
-        <div class="imgCard">
-          <img src="photos/photo5.jpg" alt="Herinnering 5">
-          <div class="cap">’n Herinnering wat ek oor en oor speel 🥹</div>
-        </div>
+  noBtn.style.left = rand(0,maxLeft) + "px";
+  noBtn.style.top  = rand(0,maxTop) + "px";
+}
 
-        <div class="imgCard">
-          <img src="photos/photo6.jpg" alt="Herinnering 6">
-          <div class="cap">My altyd-gunsteling mens 💍</div>
-        </div>
+noBtn.addEventListener('mouseenter', moveNoButton);
+noBtn.addEventListener('click', moveNoButton);
 
-      </div>
+yesBtn.addEventListener('click', () => {
+  questionView.classList.add('hidden');
+  galleryView.classList.remove('hidden');
 
-      <div class="twoCol">
-        <div class="panel">
-          <div class="sectionTitle">💌 Hoekom ek jou liefhet</div>
+  // WhatsApp message
+  const msg = "Ja ek sal jou Valentyn wees my bok?";
+  const phone = "27645337497"; // your number without +
+  const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg);
 
-          <div class="reasonGrid">
-            <div class="reason">Jy voel soos huis 🏡</div>
-            <div class="reason">Jy laat my regtig lag 😂</div>
-            <div class="reason">Jy bring vrede in my chaos 🌿</div>
-            <div class="reason">Jy glo in my (altyd) ✨</div>
-            <div class="reason">Jy’s mooi binne én buite 💖</div>
-            <div class="reason">Ek sal jou elke keer kies ♾️</div>
-          </div>
+  // small delay so she sees the screen change
+  setTimeout(() => {
+    window.open(url, "_blank");
+  }, 1000);
+});
+</script>
 
-          <div class="footer" style="margin-top:12px;">
-            <div>Wenk: vervang hierdie met jou eie woorde 😄</div>
-            <div>Tik “Nog liefde” vir harte</div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="sectionTitle">🍿 Kies ons afspraak</div>
-
-          <div class="voucher">
-            <h3>🍽️ Aandete + nagereg</h3>
-            <p>Een romantiese ete—jy kies die plek. Ek vat jou.</p>
-            <button class="chipBtn" data-voucher="Aandete + nagereg is vasgemaak 💘">Kry dit</button>
-          </div>
-
-          <div style="height:10px"></div>
-
-          <div class="voucher">
-            <h3>🎬 Fliek-aand</h3>
-            <p>Jy kies die fliek, ek bring die snacks (en vibes 😄).</p>
-            <button class="chipBtn" data-voucher="Fliek-aand is geboek 🎬💖">Kry dit</button>
-          </div>
-
-          <div style="height:10px"></div>
-
-          <div class="voucher">
-            <h3>🌙 Laatnag ry / stap</h3>
-            <p>Net ons, musiek, gesels—en saam wees.</p>
-            <button class="chipBtn" data-voucher="Laatnag afspraak geaktiveer 🌙✨">Kry dit</button>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="footer">
-        <div>📌 Voeg meer fotos by deur nog “imgCard” blokke te kopieer.</div>
-        <div>Met liefde gemaak 😄</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="toast" id="toast">Gestoor 💖</div>
-
-  <audio id="pop" preload="auto">
-    <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=" type="audio/wav">
-  </audio>
-
-  <script>
-    const noBtn = document.getElementById('noBtn');
-    const yesBtn = document.getElementById('yesBtn');
-    const playArea = document.getElementById('playArea');
-    const questionView = document.getElementById('questionView');
-    const galleryView = document.getElementById('galleryView');
-    const backBtn = document.getElementById('backBtn');
-    const confettiBtn = document.getElementById('confettiBtn');
-    const pop = document.getElementById('pop');
-    const musicBtn = document.getElementById('musicBtn');
-    const toast = document.getElementById('toast');
-    const hintText = document.getElementById('hintText');
-
-    let soundOn = false;
-    let dodgeLevel = 0;
-
-    function rand(min, max){ return Math.floor(Math.random() * (max - min + 1)) + min; }
-
-    function showToast(text){
-      toast.textContent = text;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 1600);
-    }
-
-    function moveNoButton(){
-      dodgeLevel++;
-
-      const areaRect = playArea.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
-
-      const maxLeft = areaRect.width - btnRect.width;
-      const maxTop  = areaRect.height - btnRect.height;
-
-      const pad = dodgeLevel < 4 ? 14 : 4;
-      const left = rand(pad, Math.max(pad, Math.floor(maxLeft - pad)));
-      const top  = rand(pad, Math.max(pad, Math.floor(maxTop - pad)));
-
-      noBtn.style.left = left + "px";
-      noBtn.style.top  = top + "px";
-
-      noBtn.textContent =
-        dodgeLevel < 4  ? "NEE 🙈" :
-        dodgeLevel < 7  ? "Hou op probeer 😂" :
-        dodgeLevel < 10 ? "Jy gaan my nie vang nie 😭" :
-        dodgeLevel < 13 ? "Druk net JA 😍" :
-        "ASB 😅💘";
-
-      hintText.textContent =
-        dodgeLevel < 5 ? "Wenk: probeer “NEE” tik… as jy durf 😅" :
-        dodgeLevel < 9 ? "Hehe… dis nou moeiliker 😈" :
-        "Ek dink die heelal wil hê jy moet JA druk 💖";
-
-      if(soundOn){
-        try { pop.currentTime = 0; pop.play(); } catch(e) {}
-      }
-    }
-
-    noBtn.addEventListener('mouseenter', moveNoButton);
-    noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveNoButton(); }, {passive:false});
-    noBtn.addEventListener('click', moveNoButton);
-
-    yesBtn.addEventListener('click', () => {
-      questionView.classList.add('hidden');
-      galleryView.classList.remove('hidden');
-      burstHearts(35);
-      showToast("Beste keuse ooit 💖");
-    });
-
-    backBtn.addEventListener('click', () => {
-      galleryView.classList.add('hidden');
-      questionView.classList.remove('hidden');
-      showToast("Okay… maar ek weet dis JA 😄");
-    });
-
-    confettiBtn.addEventListener('click', () => burstHearts(55));
-
-    document.querySelectorAll('[data-voucher]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        burstHearts(18);
-        showToast(btn.getAttribute('data-voucher'));
-      });
-    });
-
-    function burstHearts(n=20){
-      for(let i=0;i<n;i++){
-        const el = document.createElement('div');
-        el.className = 'heart';
-        el.textContent = Math.random() > 0.5 ? '💖' : (Math.random() > 0.5 ? '💘' : '💕');
-        el.style.left = rand(0, window.innerWidth) + "px";
-        el.style.bottom = "-20px";
-        el.style.fontSize = rand(14, 30) + "px";
-        el.style.animationDuration = rand(2400, 5200) + "ms";
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 6000);
-      }
-    }
-    setInterval(() => burstHearts(4), 1200);
-
-    musicBtn.addEventListener('click', () => {
-      soundOn = !soundOn;
-      musicBtn.textContent = soundOn ? "🔊 Klank: Aan" : "🔇 Klank: Af";
-      burstHearts(10);
-      showToast(soundOn ? "Klank aan 🔊" : "Klank af 🔇");
-    });
-
-    window.addEventListener('load', () => {
-      noBtn.style.left = "58%";
-      noBtn.style.top = "55%";
-    });
-  </script>
 </body>
 </html>
 
-  </script>
-</body>
-</html>
+
 
