@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="af">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wil jy my Valentyn wees? 💘</title>
+  <style>
+    :root{
+      --bg1:#ffdde1;
+      --bg2:#ee9ca7;
+      --card:#ffffffcc;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --yes:#16a34a;
+      --no:#ef4444;
+      --dark:#111827;
+      --chip:#ffffffaa;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at top, var(--bg1), var(--bg2));
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      color:var(--text);
+    }
+
+    /* Drywende harte */
+    .heart{
+      position:absolute;
+      font-size:18px;
+      opacity:.65;
+      animation: floatUp linear forwards;
+      user-select:none;
+      pointer-events:none;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.12));
+    }
+    @keyframes floatUp{
+      from{ transform: translateY(30px) scale(.9); opacity:.0; }
+      10%{ opacity:.75; }
+      to{ transform: translateY(-110vh) scale(1.4); opacity:0; }
+    }
+
+    .card{
+      width:min(980px, 94vw);
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.35);
+      backdrop-filter: blur(10px);
+      border-radius:24px;
+      padding:24px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.15);
+      position:relative;
+    }
+
+    .top{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    h1{
+      margin:0;
+      font-size: clamp(26px, 3.4vw, 44px);
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      margin:8px 0 0;
+      font-size: clamp(14px, 1.8vw, 18px);
+      opacity:.85;
+    }
+
+    .pillRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: var(--chip);
+      border:1px solid rgba(0,0,0,.06);
+      font-size:13px;
+      color: var(--dark);
+      opacity:.9;
+    }
+
+    .stage{
+      margin-top:18px;
+      background: rgba(255,255,255,.55);
+      border-radius:18px;
+      padding:18px;
+      position:relative;
+      min-height: 320px;
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,.06);
+    }
+
+    .question{
+      text-align:center;
+      margin:18px auto 14px;
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 900;
+    }
+
+    .btnRow{
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:14px;
+      position:relative;
+      height: 170px;
+      align-items:center;
+    }
+
+    button{
+      border:0;
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-weight:900;
+      font-size: 18px;
+      cursor:pointer;
+      transition: transform .08s ease, filter .2s ease;
+      box-shadow: 0 12px 26px rgba(0,0,0,.15);
+    }
+    button:active{ transform: scale(.98); }
+    #yesBtn{ background: var(--yes); color:white; }
+    #yesBtn:hover{ filter: brightness(1.05); }
+
+    #noBtn{
+      background: var(--no);
+      color:white;
+      position:absolute;
+      left: 58%;
+      top: 55%;
+      transform: translate(-50%, -50%);
+      touch-action: none;
+      white-space: nowrap;
+    }
+
+    .hint{
+      text-align:center;
+      opacity:.85;
+      margin: 6px 0 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .hidden{ display:none; }
+
+    /* Galery / afdelings */
+    .galleryHeader{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .message{
+      font-size: clamp(16px, 2vw, 20px);
+      line-height:1.35;
+      max-width: 62ch;
+      margin: 8px 0 0;
+    }
+
+    .sectionTitle{
+      margin: 18px 0 10px;
+      font-size: 18px;
+      font-weight: 900;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    .imgCard{
+      border-radius:16px;
+      overflow:hidden;
+      position:relative;
+      background:#fff;
+      border:1px solid rgba(0,0,0,.06);
+      box-shadow: 0 10px 28px rgba(0,0,0,.10);
+    }
+    .imgCard img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      display:block;
+    }
+    .cap{
+      padding:10px 12px;
+      font-weight:800;
+      font-size: 14px;
+      opacity:.92;
+    }
+
+    .twoCol{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    @media (max-width: 860px){
+      .twoCol{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      background: rgba(255,255,255,.65);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:16px;
+      padding:14px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.08);
+    }
+
+    .reasonGrid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap:10px;
+    }
+    .reason{
+      background:#fff;
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:14px;
+      padding:12px;
+      font-weight:800;
+      min-height:56px;
+      display:flex;
+      align-items:center;
+      box-shadow: 0 10px 24px rgba(0,0,0,.06);
+    }
+
+    .voucher{
+      background:#fff;
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:14px;
+      padding:12px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.06);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .voucher h3{
+      margin:0;
+      font-size:16px;
+      font-weight:900;
+    }
+    .voucher p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
+    .chipBtn{
+      align-self:flex-start;
+      background: var(--dark);
+      color:white;
+      font-size:13px;
+      padding:9px 12px;
+      border-radius: 12px;
+      box-shadow:none;
+    }
+    .chipBtn:hover{ filter:brightness(1.1); }
+
+    .smallBtn{
+      background: var(--dark);
+      color:white;
+      font-size:14px;
+      padding:10px 14px;
+      border-radius: 12px;
+      box-shadow:none;
+    }
+    .smallBtn:hover{ filter: brightness(1.1); }
+
+    .footer{
+      margin-top:14px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      opacity:.85;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%);
+      background: rgba(17,24,39,.92);
+      color:#fff;
+      padding:10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.22);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .toast.show{
+      opacity:1;
+      transform: translateX(-50%) translateY(-6px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="top">
+      <div>
+        <h1>Hallo my liefie 💘</h1>
+        <p class="subtitle">Ek het vir jou iets klein gemaak… maar dit beteken alles vir my.</p>
+        <div class="pillRow">
+          <div class="pill">💖 Met liefde gemaak</div>
+          <div class="pill">📸 Ons herinneringe</div>
+          <div class="pill">✨ Een eenvoudige vraag</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="smallBtn" id="musicBtn">🔇 Klank: Af</button>
+      </div>
+    </div>
+
+    <!-- VRAAG -->
+    <div class="stage" id="questionView">
+      <div class="question">Wil jy my Valentyn wees? 🥺</div>
+      <div class="btnRow" id="playArea">
+        <button id="yesBtn">JA 😍</button>
+        <button id="noBtn">NEE 🙈</button>
+      </div>
+      <div class="hint" id="hintText">Wenk: probeer “NEE” tik… as jy durf 😅</div>
+    </div>
+
+    <!-- GALERY -->
+    <div class="stage hidden" id="galleryView">
+      <div class="galleryHeader">
+        <div>
+          <div class="question">Jaaa!! 🎉💖</div>
+          <div class="message" id="loveMsg">
+            Jy maak my lewe ligter op ’n manier wat ek nie kan verduidelik nie.
+            Dankie dat jy my beste mens is. Ek kies jou—vandag en altyd.
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="smallBtn" id="confettiBtn">🎊 Nog liefde</button>
+          <button class="smallBtn" id="backBtn">↩ Terug</button>
+        </div>
+      </div>
+
+      <div class="sectionTitle">📸 Ons mooiste oomblikke</div>
+      <div class="grid" id="grid">
+        <div class="imgCard">
+          <img src="photos/photo1.jpg" alt="Herinnering 1">
+          <div class="cap">Ons eerste groot glimlag saam 😊</div>
+        </div>
+        <div class="imgCard">
+          <img src="photos/photo2.jpg" alt="Herinnering 2">
+          <div class="cap">Daardie dag toe ek besef: dis jy 💞</div>
+        </div>
+        <div class="imgCard">
+          <img src="photos/photo3.jpg" alt="Herinnering 3">
+          <div class="cap">My gunsteling avontuur maat 🌍</div>
+        </div>
+        <div class="imgCard">
+          <img src="photos/photo4.jpg" alt="Herinnering 4">
+          <div class="cap">Huis is waar jy is 🏡</div>
+        </div>
+        <div class="imgCard">
+          <img src="photos/photo5.jpg" alt="Herinnering 5">
+          <div class="cap">’n Herinnering wat ek oor en oor speel 🥹</div>
+        </div>
+        <div class="imgCard">
+          <img src="photos/photo6.jpg" alt="Herinnering 6">
+          <div class="cap">My altyd-gunsteling mens 💍</div>
+        </div>
+      </div>
+
+      <div class="twoCol">
+        <div class="panel">
+          <div class="sectionTitle">💌 Hoekom ek jou liefhet</div>
+          <div class="reasonGrid">
+            <div class="reason">Jy voel soos huis 🏡</div>
+            <div class="reason">Jy laat my regtig lag 😂</div>
+            <div class="reason">Jy bring vrede in my chaos 🌿</div>
+            <div class="reason">Jy glo in my (altyd) ✨</div>
+            <div class="reason">Jy’s mooi binne én buite 💖</div>
+            <div class="reason">Ek sal jou elke keer kies ♾️</div>
+          </div>
+          <div class="footer" style="margin-top:12px;">
+            <div>Wenk: vervang hierdie met jou eie woorde 😄</div>
+            <div>Tik “Nog liefde” vir harte</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="sectionTitle">🍿 Kies ons afspraak</div>
+
+          <div class="voucher">
+            <h3>🍽️ Aandete + nagereg</h3>
+            <p>Een romantiese ete—jy kies die plek. Ek vat jou.</p>
+            <button class="chipBtn" data-voucher="Aandete + nagereg is vasgemaak 💘">Kry dit</button>
+          </div>
+
+          <div style="height:10px"></div>
+
+          <div class="voucher">
+            <h3>🎬 Fliek-aand</h3>
+            <p>Jy kies die fliek, ek bring die snacks (en vibes 😄).</p>
+            <button class="chipBtn" data-voucher="Fliek-aand is geboek 🎬💖">Kry dit</button>
+          </div>
+
+          <div style="height:10px"></div>
+
+          <div class="voucher">
+            <h3>🌙 Laatnag ry / stap</h3>
+            <p>Net ons, musiek, gesels—en saam wees.</p>
+            <button class="chipBtn" data-voucher="Laatnag afspraak geaktiveer 🌙✨">Kry dit</button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>📌 Voeg meer fotos by deur nog “imgCard” blokke te kopieer.</div>
+        <div>Met liefde gemaak 😄</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Gestoor 💖</div>
+
+  <audio id="pop" preload="auto">
+    <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=" type="audio/wav">
+  </audio>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const playArea = document.getElementById('playArea');
+    const questionView = document.getElementById('questionView');
+    const galleryView = document.getElementById('galleryView');
+    const backBtn = document.getElementById('backBtn');
+    const confettiBtn = document.getElementById('confettiBtn');
+    const pop = document.getElementById('pop');
+    const musicBtn = document.getElementById('musicBtn');
+    const toast = document.getElementById('toast');
+    const hintText = document.getElementById('hintText');
+
+    let soundOn = false;
+    let dodgeLevel = 0;
+
+    function rand(min, max){ return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+    function showToast(text){
+      toast.textContent = text;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1600);
+    }
+
+    function moveNoButton(){
+      dodgeLevel++;
+
+      const areaRect = playArea.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxLeft = areaRect.width - btnRect.width;
+      const maxTop  = areaRect.height - btnRect.height;
+
+      const pad = dodgeLevel < 4 ? 14 : 4;
+      const left = rand(pad, Math.max(pad, Math.floor(maxLeft - pad)));
+      const top  = rand(pad, Math.max(pad, Math.floor(maxTop - pad)));
+
+      noBtn.style.left = left + "px";
+      noBtn.style.top  = top + "px";
+
+      noBtn.textContent =
+        dodgeLevel < 4  ? "NEE 🙈" :
+        dodgeLevel < 7  ? "Hou op probeer 😂" :
+        dodgeLevel < 10 ? "Jy gaan my nie vang nie 😭" :
+        dodgeLevel < 13 ? "Druk net JA 😍" :
+        "ASB 😅💘";
+
+      hintText.textContent =
+        dodgeLevel < 5 ? "Wenk: probeer “NEE” tik… as jy durf 😅" :
+        dodgeLevel < 9 ? "Hehe… dis nou moeiliker 😈" :
+        "Ek dink die heelal wil hê jy moet JA druk 💖";
+
+      if(soundOn){
+        try { pop.currentTime = 0; pop.play(); } catch(e) {}
+      }
+    }
+
+    noBtn.addEventListener('mouseenter', moveNoButton);
+    noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveNoButton(); }, {passive:false});
+    noBtn.addEventListener('click', moveNoButton);
+
+    yesBtn.addEventListener('click', () => {
+      questionView.classList.add('hidden');
+      galleryView.classList.remove('hidden');
+      burstHearts(35);
+      showToast("Beste keuse ooit 💖");
+    });
+
+    backBtn.addEventListener('click', () => {
+      galleryView.classList.add('hidden');
+      questionView.classList.remove('hidden');
+      showToast("Okay… maar ek weet dis JA 😄");
+    });
+
+    confettiBtn.addEventListener('click', () => burstHearts(55));
+
+    document.querySelectorAll('[data-voucher]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        burstHearts(18);
+        showToast(btn.getAttribute('data-voucher'));
+      });
+    });
+
+    function burstHearts(n=20){
+      for(let i=0;i<n;i++){
+        const el = document.createElement('div');
+        el.className = 'heart';
+        el.textContent = Math.random() > 0.5 ? '💖' : (Math.random() > 0.5 ? '💘' : '💕');
+        el.style.left = rand(0, window.innerWidth) + "px";
+        el.style.bottom = "-20px";
+        el.style.fontSize = rand(14, 30) + "px";
+        el.style.animationDuration = rand(2400, 5200) + "ms";
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 6000);
+      }
+    }
+    setInterval(() => burstHearts(4), 1200);
+
+    musicBtn.addEventListener('click', () => {
+      soundOn = !soundOn;
+      musicBtn.textContent = soundOn ? "🔊 Klank: Aan" : "🔇 Klank: Af";
+      burstHearts(10);
+      showToast(soundOn ? "Klank aan 🔊" : "Klank af 🔇");
+    });
+
+    window.addEventListener('load', () => {
+      noBtn.style.left = "58%";
+      noBtn.style.top = "55%";
+    });
+  </script>
+</body>
+</html>
