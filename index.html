@@ -3,18 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wil jy my Valentyn wees? 💘</title>
+  <title>Sal jy my Valentyn wees? 💘</title>
+
   <style>
     :root{
-      --bg1:#ffdde1;
-      --bg2:#ee9ca7;
-      --card:#ffffffcc;
-      --text:#1f2937;
+      --bg1:#fff1f3;
+      --bg2:#fbcfe8;
+      --card:rgba(255,255,255,.78);
+      --text:#111827;
       --muted:#6b7280;
-      --yes:#16a34a;
-      --no:#ef4444;
+      --yes:#15803d;
+      --no:#dc2626;
       --dark:#111827;
-      --chip:#ffffffaa;
+      --chip:rgba(255,255,255,.70);
+      --line:rgba(17,24,39,.08);
     }
     *{box-sizing:border-box}
     body{
@@ -37,48 +39,57 @@
       animation: floatUp linear forwards;
       user-select:none;
       pointer-events:none;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,.12));
+      filter: drop-shadow(0 10px 16px rgba(0,0,0,.10));
     }
     @keyframes floatUp{
-      from{ transform: translateY(30px) scale(.9); opacity:.0; }
-      10%{ opacity:.75; }
-      to{ transform: translateY(-110vh) scale(1.4); opacity:0; }
+      from{ transform: translateY(30px) scale(.9); opacity:0; }
+      12%{ opacity:.8; }
+      to{ transform: translateY(-110vh) scale(1.45); opacity:0; }
     }
 
+    /* Subtle fade-in */
     .card{
       width:min(980px, 94vw);
       background:var(--card);
-      border:1px solid rgba(255,255,255,.35);
-      backdrop-filter: blur(10px);
-      border-radius:24px;
-      padding:24px;
-      box-shadow: 0 18px 60px rgba(0,0,0,.15);
+      border:1px solid rgba(255,255,255,.55);
+      backdrop-filter: blur(16px);
+      border-radius:28px;
+      padding:26px;
+      box-shadow: 0 24px 80px rgba(17,24,39,.18);
       position:relative;
+      animation: popIn .5s ease both;
+    }
+    @keyframes popIn{
+      from{ opacity:0; transform: translateY(8px) scale(.98); }
+      to{ opacity:1; transform: translateY(0) scale(1); }
     }
 
     .top{
       display:flex;
       gap:18px;
-      align-items:center;
+      align-items:flex-start;
       justify-content:space-between;
       flex-wrap:wrap;
     }
     h1{
       margin:0;
-      font-size: clamp(26px, 3.4vw, 44px);
-      letter-spacing:-.02em;
+      font-size: clamp(28px, 3.6vw, 46px);
+      letter-spacing:-.03em;
+      font-weight: 950;
     }
     .subtitle{
-      margin:8px 0 0;
+      margin:10px 0 0;
       font-size: clamp(14px, 1.8vw, 18px);
-      opacity:.85;
+      color: var(--muted);
+      line-height: 1.4;
+      max-width: 70ch;
     }
 
     .pillRow{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
-      margin-top:10px;
+      margin-top:12px;
     }
     .pill{
       display:inline-flex;
@@ -87,28 +98,30 @@
       padding:8px 12px;
       border-radius:999px;
       background: var(--chip);
-      border:1px solid rgba(0,0,0,.06);
+      border:1px solid var(--line);
       font-size:13px;
       color: var(--dark);
-      opacity:.9;
+      opacity:.92;
     }
 
     .stage{
       margin-top:18px;
-      background: rgba(255,255,255,.55);
-      border-radius:18px;
-      padding:18px;
+      background: rgba(255,255,255,.62);
+      border-radius:22px;
+      padding:20px;
       position:relative;
       min-height: 320px;
       overflow:hidden;
-      border:1px solid rgba(0,0,0,.06);
+      border:1px solid var(--line);
+      box-shadow: 0 14px 40px rgba(17,24,39,.08) inset;
     }
 
     .question{
       text-align:center;
       margin:18px auto 14px;
       font-size: clamp(22px, 3vw, 36px);
-      font-weight: 900;
+      font-weight: 950;
+      letter-spacing:-.02em;
     }
 
     .btnRow{
@@ -118,26 +131,30 @@
       flex-wrap:wrap;
       margin-top:14px;
       position:relative;
-      height: 170px;
+      height: 180px;
       align-items:center;
     }
 
     button{
       border:0;
-      border-radius: 14px;
-      padding: 14px 20px;
-      font-weight:900;
+      border-radius: 16px;
+      padding: 14px 22px;
+      font-weight: 950;
       font-size: 18px;
       cursor:pointer;
-      transition: transform .08s ease, filter .2s ease;
-      box-shadow: 0 12px 26px rgba(0,0,0,.15);
+      transition: transform .08s ease, filter .2s ease, box-shadow .2s ease;
+      box-shadow: 0 14px 34px rgba(17,24,39,.18);
     }
     button:active{ transform: scale(.98); }
-    #yesBtn{ background: var(--yes); color:white; }
-    #yesBtn:hover{ filter: brightness(1.05); }
+
+    #yesBtn{
+      background: linear-gradient(180deg, rgba(21,128,61,1), rgba(16,111,54,1));
+      color:white;
+    }
+    #yesBtn:hover{ filter: brightness(1.06); }
 
     #noBtn{
-      background: var(--no);
+      background: linear-gradient(180deg, rgba(220,38,38,1), rgba(185,28,28,1));
       color:white;
       position:absolute;
       left: 58%;
@@ -145,12 +162,12 @@
       transform: translate(-50%, -50%);
       touch-action: none;
       white-space: nowrap;
+      box-shadow: 0 14px 34px rgba(17,24,39,.20);
     }
 
     .hint{
       text-align:center;
-      opacity:.85;
-      margin: 6px 0 0;
+      margin: 8px 0 0;
       font-size: 14px;
       color: var(--muted);
     }
@@ -168,88 +185,95 @@
     }
     .message{
       font-size: clamp(16px, 2vw, 20px);
-      line-height:1.35;
-      max-width: 62ch;
+      line-height:1.45;
+      max-width: 68ch;
       margin: 8px 0 0;
+      color: var(--text);
+      opacity:.96;
     }
 
     .sectionTitle{
-      margin: 18px 0 10px;
+      margin: 20px 0 12px;
       font-size: 18px;
-      font-weight: 900;
+      font-weight: 950;
       display:flex;
       align-items:center;
       gap:10px;
+      letter-spacing:-.01em;
     }
 
     .grid{
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap:12px;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap:14px;
       margin-top:12px;
     }
     .imgCard{
-      border-radius:16px;
+      border-radius:18px;
       overflow:hidden;
       position:relative;
       background:#fff;
-      border:1px solid rgba(0,0,0,.06);
-      box-shadow: 0 10px 28px rgba(0,0,0,.10);
+      border:1px solid var(--line);
+      box-shadow: 0 14px 40px rgba(17,24,39,.12);
+      transform: translateZ(0);
     }
     .imgCard img{
       width:100%;
-      height:220px;
+      height:230px;
       object-fit:cover;
       display:block;
+      filter: saturate(1.05) contrast(1.02);
     }
     .cap{
-      padding:10px 12px;
-      font-weight:800;
+      padding:12px 14px;
+      font-weight:850;
       font-size: 14px;
-      opacity:.92;
+      line-height: 1.35;
+      color: #111827;
     }
 
     .twoCol{
       display:grid;
       grid-template-columns: 1.1fr .9fr;
       gap:14px;
-      margin-top:14px;
+      margin-top:16px;
     }
     @media (max-width: 860px){
       .twoCol{ grid-template-columns: 1fr; }
     }
 
     .panel{
-      background: rgba(255,255,255,.65);
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:16px;
-      padding:14px;
-      box-shadow: 0 10px 26px rgba(0,0,0,.08);
+      background: rgba(255,255,255,.68);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+      box-shadow: 0 12px 34px rgba(17,24,39,.10);
     }
 
     .reasonGrid{
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
       gap:10px;
+      margin-top:10px;
     }
     .reason{
       background:#fff;
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:14px;
+      border:1px solid var(--line);
+      border-radius:16px;
       padding:12px;
-      font-weight:800;
-      min-height:56px;
+      font-weight:850;
+      min-height:58px;
       display:flex;
       align-items:center;
-      box-shadow: 0 10px 24px rgba(0,0,0,.06);
+      box-shadow: 0 12px 26px rgba(17,24,39,.07);
     }
 
     .voucher{
       background:#fff;
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:14px;
-      padding:12px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.06);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+      box-shadow: 0 12px 26px rgba(17,24,39,.07);
       display:flex;
       flex-direction:column;
       gap:10px;
@@ -257,34 +281,36 @@
     .voucher h3{
       margin:0;
       font-size:16px;
-      font-weight:900;
+      font-weight:950;
+      letter-spacing:-.01em;
     }
     .voucher p{
       margin:0;
       color:var(--muted);
       font-size:13px;
-      line-height:1.35;
+      line-height:1.4;
     }
+
     .chipBtn{
       align-self:flex-start;
       background: var(--dark);
       color:white;
       font-size:13px;
-      padding:9px 12px;
-      border-radius: 12px;
+      padding:10px 12px;
+      border-radius: 14px;
       box-shadow:none;
     }
     .chipBtn:hover{ filter:brightness(1.1); }
 
     .smallBtn{
-      background: var(--dark);
+      background: rgba(17,24,39,.94);
       color:white;
       font-size:14px;
       padding:10px 14px;
-      border-radius: 12px;
+      border-radius: 14px;
       box-shadow:none;
     }
-    .smallBtn:hover{ filter: brightness(1.1); }
+    .smallBtn:hover{ filter: brightness(1.06); }
 
     .footer{
       margin-top:14px;
@@ -292,9 +318,9 @@
       justify-content:space-between;
       gap:10px;
       flex-wrap:wrap;
-      opacity:.85;
       font-size: 13px;
       color: var(--muted);
+      opacity:.92;
     }
 
     .toast{
@@ -323,14 +349,16 @@
   <div class="card">
     <div class="top">
       <div>
-        <h1>Hallo my liefie 💘</h1>
-        <p class="subtitle">Ek het vir jou iets klein gemaak… maar dit beteken alles vir my.</p>
+        <h1>Hallo my engel 💘</h1>
+        <p class="subtitle">Ek dink die woord ‘mooi’ is uitgevind net om Mia te beskryf.</p>
+
         <div class="pillRow">
           <div class="pill">💖 Met liefde gemaak</div>
           <div class="pill">📸 Ons herinneringe</div>
           <div class="pill">✨ Een eenvoudige vraag</div>
         </div>
       </div>
+
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
         <button class="smallBtn" id="musicBtn">🔇 Klank: Af</button>
       </div>
@@ -338,11 +366,13 @@
 
     <!-- VRAAG -->
     <div class="stage" id="questionView">
-      <div class="question">Wil jy my Valentyn wees? 🥺</div>
+      <div class="question">Sal jy my Valentyn wees? 🥺</div>
+
       <div class="btnRow" id="playArea">
         <button id="yesBtn">JA 😍</button>
         <button id="noBtn">NEE 🙈</button>
       </div>
+
       <div class="hint" id="hintText">Wenk: probeer “NEE” tik… as jy durf 😅</div>
     </div>
 
@@ -364,35 +394,43 @@
 
       <div class="sectionTitle">📸 Ons mooiste oomblikke</div>
       <div class="grid" id="grid">
+
         <div class="imgCard">
           <img src="photos/photo1.jpg" alt="Herinnering 1">
-          <div class="cap">Ons eerste groot glimlag saam 😊</div>
+          <div class="cap">Wat ons uniek maak, is dat ons mekaar kies—elke dag, oor en oor.</div>
         </div>
+
         <div class="imgCard">
           <img src="photos/photo2.jpg" alt="Herinnering 2">
-          <div class="cap">Daardie dag toe ek besef: dis jy 💞</div>
+          <div class="cap">Twee verskillende mense, een span, een pad, een liefde.</div>
         </div>
+
         <div class="imgCard">
           <img src="photos/photo3.jpg" alt="Herinnering 3">
           <div class="cap">My gunsteling avontuur maat 🌍</div>
         </div>
+
         <div class="imgCard">
           <img src="photos/photo4.jpg" alt="Herinnering 4">
           <div class="cap">Huis is waar jy is 🏡</div>
         </div>
+
         <div class="imgCard">
           <img src="photos/photo5.jpg" alt="Herinnering 5">
           <div class="cap">’n Herinnering wat ek oor en oor speel 🥹</div>
         </div>
+
         <div class="imgCard">
           <img src="photos/photo6.jpg" alt="Herinnering 6">
           <div class="cap">My altyd-gunsteling mens 💍</div>
         </div>
+
       </div>
 
       <div class="twoCol">
         <div class="panel">
           <div class="sectionTitle">💌 Hoekom ek jou liefhet</div>
+
           <div class="reasonGrid">
             <div class="reason">Jy voel soos huis 🏡</div>
             <div class="reason">Jy laat my regtig lag 😂</div>
@@ -401,6 +439,7 @@
             <div class="reason">Jy’s mooi binne én buite 💖</div>
             <div class="reason">Ek sal jou elke keer kies ♾️</div>
           </div>
+
           <div class="footer" style="margin-top:12px;">
             <div>Wenk: vervang hierdie met jou eie woorde 😄</div>
             <div>Tik “Nog liefde” vir harte</div>
@@ -560,3 +599,8 @@
   </script>
 </body>
 </html>
+
+  </script>
+</body>
+</html>
+
